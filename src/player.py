@@ -8,4 +8,5 @@ class Player:
     def __str__(self):
         print(self.name, self.current_room)
 
-    
+    def __repr__(self):
+        return (f"Player(name={self.name}, current_room = {self.current_room})")
