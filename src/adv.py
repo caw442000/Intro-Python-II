@@ -1,10 +1,10 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
 room = {
-    'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+    'outside':  Room("Outside Cave Entrance", "North of you, the cave mount beckons"),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east."""),
@@ -38,6 +38,7 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+player = Player('new Player', room['outside'])
 
 # Write a loop that:
 #
@@ -49,3 +50,35 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+player_name = input('Enter a name for your character: ')
+
+
+while True:
+    print(f'\n{player_name} is {player.current_room.name} \n{player.current_room.description}')
+    direction = str(input("\nWhich way would you like to go\n 'n', 's', 'e', 'w', 'q to quit'\n: "))
+    if direction == "q":
+        print('Thank you for playing!')
+        exit(0)
+    elif direction == 'n':
+        if player.current_room.n_to is not None:
+            player.current_room = player.current_room.n_to
+        else:
+            print("You cannot move in that direction\n")
+    elif direction == 's':
+        if player.current_room.s_to is not None:
+            player.current_room = player.current_room.s_to
+        else:
+            print("You cannot move in that direction\n")
+    elif direction == 'e':
+        if player.current_room.e_to is not None:
+            player.current_room = player.current_room.e_to
+        else:
+            print("You cannot move in that direction\n")
+    elif direction == 'w':
+        if player.current_room.w_to is not None:
+            player.current_room = player.current_room.w_to
+        else:
+            print("You cannot move in that direction. Choose again\n")
+    else:
+        print("I did not understand the command. Choose again\n\n")
