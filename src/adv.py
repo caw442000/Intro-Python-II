@@ -1,5 +1,8 @@
 from room import Room
 from player import Player
+import textwrap
+
+# Declare Items
 
 # Declare all the rooms
 
@@ -52,14 +55,16 @@ player = Player('new Player', room['outside'])
 # If the user enters "q", quit the game.
 
 player_name = input('Enter a name for your character: ')
+user_is_playing = True
 
-
-while True:
-    print(f'\n{player_name} is {player.current_room.name} \n{player.current_room.description}')
+while user_is_playing:
+    for line in textwrap.wrap(player_name + ' is in the ' + player.current_room.name + ' ' + player.current_room.description, 25):
+        print(line)
     direction = str(input("\nWhich way would you like to go\n 'n', 's', 'e', 'w', 'q to quit'\n: "))
     if direction == "q":
         print('Thank you for playing!')
-        exit(0)
+        user_is_playing = False
+        # exit(0)
     elif direction == 'n':
         if player.current_room.n_to is not None:
             player.current_room = player.current_room.n_to
